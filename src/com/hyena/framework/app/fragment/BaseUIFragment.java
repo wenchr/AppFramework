@@ -297,6 +297,9 @@ public class BaseUIFragment<T extends BaseUIFragmentHelper> extends BaseSubFragm
         super.onViewCreatedImpl(view, savedInstanceState);
         autoAttachAllView();
         autoAttachAnimation();
+        if (!isSlideable() && getAnimationIn() == null) {
+            onPanelOpened(view);
+        }
     }
     
     @Override
