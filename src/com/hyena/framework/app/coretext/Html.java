@@ -3,18 +3,6 @@
  */
 package com.hyena.framework.app.coretext;
 
-import java.io.IOException;
-import java.io.StringReader;
-
-import org.ccil.cowan.tagsoup.HTMLSchema;
-import org.ccil.cowan.tagsoup.Parser;
-import org.xml.sax.Attributes;
-import org.xml.sax.ContentHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.Locator;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -44,9 +32,21 @@ import android.text.style.TypefaceSpan;
 import android.text.style.URLSpan;
 import android.text.style.UnderlineSpan;
 
-import com.hyena.framework.R;
 import com.hyena.framework.app.coretext.Html.ImageGetter;
 import com.hyena.framework.app.coretext.Html.TagHandler;
+import com.hyena.framework.clientlog.LogUtil;
+
+import org.ccil.cowan.tagsoup.HTMLSchema;
+import org.ccil.cowan.tagsoup.Parser;
+import org.xml.sax.Attributes;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+
+import java.io.IOException;
+import java.io.StringReader;
 
 /**
  * 自定义html解析器
@@ -619,8 +619,13 @@ class HtmlToSpannedConverter implements ContentHandler {
 		}
 
 		if (d == null) {
-			d = Resources.getSystem().getDrawable(R.drawable.ic_launcher);
-			d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+			//default drawable
+			try {
+				d = Resources.getSystem().getDrawable(0);
+				d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+			} catch (Exception e) {
+				LogUtil.e("Html", e);
+			}
 		}
 
 		int len = text.length();
