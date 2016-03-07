@@ -64,6 +64,8 @@ import com.nineoldandroids.animation.ObjectAnimator;
  */
 public class BaseUIFragment<T extends BaseUIFragmentHelper> extends BaseSubFragment {
 
+    private static final String TAG = "BaseUIFragment";
+
     public static final int ACTION_DEFAULT = 0;
     public static final int PAGE_FIRST = 1;
     public static final int PAGE_MORE = 2;
@@ -90,6 +92,7 @@ public class BaseUIFragment<T extends BaseUIFragmentHelper> extends BaseSubFragm
     private boolean mVisible = false;
     //是否初始化成功
     private boolean mInited = false;
+    private int mAncherX, mAncherY;
 
     private int mTitleBarId;
     //入场动画类型
@@ -98,7 +101,8 @@ public class BaseUIFragment<T extends BaseUIFragmentHelper> extends BaseSubFragm
     public static enum AnimType {
         ANIM_NONE //没有动画
         , RIGHT_TO_LEFT//右到左
-        , BOTTOM_TO_TOP;//下到上
+        , BOTTOM_TO_TOP//下到上
+        ;
     }
 
     /**
@@ -309,7 +313,19 @@ public class BaseUIFragment<T extends BaseUIFragmentHelper> extends BaseSubFragm
     	unRegistReceiver();
     	mInited = false;
     }
-    
+
+    @Override
+    public void onPanelOpened(View pPanel) {
+        super.onPanelOpened(pPanel);
+        LogUtil.v(TAG, "onPanelOpened:" + getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPanelClosed(View pPanel) {
+        super.onPanelClosed(pPanel);
+        LogUtil.v(TAG, "onPanelClosed:" + getClass().getSimpleName());
+    }
+
     public boolean isInited(){
         return mInited;
     }
@@ -453,6 +469,9 @@ public class BaseUIFragment<T extends BaseUIFragmentHelper> extends BaseSubFragm
             });
             getView().startAnimation(animation);
         } else {
+            if (!isSlideable()) {
+                onPanelClosed(null);
+            }
             super.finish();
         }
     }
@@ -503,6 +522,12 @@ public class BaseUIFragment<T extends BaseUIFragmentHelper> extends BaseSubFragm
     public void showPopFragment(BaseUIFragment<?> fragment){
         fragment.setAnimationType(AnimType.BOTTOM_TO_TOP);
         showFragment(fragment);
+    }
+
+    public void showFragment(BaseUIFragment<?> fragment, int ancherX, int ancherY) {
+        this.mAncherX = ancherX;
+        this.mAncherY = ancherY;
+        super.showFragment(fragment);
     }
 
     //============================ 相关回调 ==================================================
