@@ -3,6 +3,11 @@
  */
 package com.hyena.framework.app.fragment;
 
+import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+
+import com.hyena.framework.servcie.BaseService;
+
 /**
  * BaseUIFragment帮助接口
  * @author yangzc on 15/8/22.
@@ -31,5 +36,75 @@ public abstract class BaseUIFragmentHelper {
      */
     public int getBackGroundColor(){
     	return 0xfff6f6f6;
+    }
+
+    /**
+     * replace fragment
+     * @param id layoutId
+     * @param fragment fragment
+     */
+    public void replaceFragment(int id, BaseUIFragment fragment) {
+        if (mBaseUIFragment == null && mBaseUIFragment.getActivity() == null
+                && mBaseUIFragment.getActivity().isFinishing())
+            return;
+
+        FragmentTransaction transaction = getBaseUIFragment()
+                .getChildFragmentManager().beginTransaction();
+        transaction.replace(id, fragment);
+        transaction.commitAllowingStateLoss();
+    }
+
+    /**
+     * showPushFragment
+     * @param clz class
+     */
+    public void showPushFragment(Class<? extends BaseUIFragment> clz) {
+        showPushFragment(clz, null);
+    }
+
+    /**
+     * showPopFragment
+     * @param clz class
+     */
+    public void showPopFragment(Class<? extends BaseUIFragment> clz) {
+        showPopFragment(clz, null);
+    }
+
+    /**
+     * showPushFragment
+     * @param clz class
+     * @param bundle arguments
+     */
+    public void showPushFragment(Class<? extends BaseUIFragment> clz, Bundle bundle) {
+        if (mBaseUIFragment == null && mBaseUIFragment.getActivity() == null
+                && mBaseUIFragment.getActivity().isFinishing())
+            return;
+
+        BaseUIFragment fragment = BaseUIFragment.newFragment(
+                getBaseUIFragment().getActivity(), clz, bundle);
+        getBaseUIFragment().showPushFragment(fragment);
+    }
+
+    /**
+     * showPopFragment
+     * @param clz class
+     * @param bundle arguments
+     */
+    public void showPopFragment(Class<? extends BaseUIFragment> clz, Bundle bundle) {
+        if (mBaseUIFragment == null && mBaseUIFragment.getActivity() == null
+                && mBaseUIFragment.getActivity().isFinishing())
+            return;
+
+        BaseUIFragment fragment = BaseUIFragment.newFragment(
+                getBaseUIFragment().getActivity(), clz, bundle);
+        getBaseUIFragment().showPopFragment(fragment);
+
+    }
+
+    public <T extends BaseService> T getService(String serviceName) {
+        if (mBaseUIFragment == null && mBaseUIFragment.getActivity() == null
+                && mBaseUIFragment.getActivity().isFinishing())
+            return null;
+        return (T) mBaseUIFragment.getSystemService(serviceName);
     }
 }
