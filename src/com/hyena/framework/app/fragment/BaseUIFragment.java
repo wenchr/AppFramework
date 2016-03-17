@@ -376,7 +376,8 @@ public class BaseUIFragment<T extends BaseUIFragmentHelper> extends BaseSubFragm
     @Override
     public void onError(Throwable e) {
     	if (LogUtil.isDebug()) {
-    		LogUtil.e(((Object)this).getClass().getSimpleName(), e);
+//    		LogUtil.e(((Object)this).getClass().getSimpleName(), e);
+            throw new RuntimeException(e);
 		} else {
 			super.onError(e);
 		}

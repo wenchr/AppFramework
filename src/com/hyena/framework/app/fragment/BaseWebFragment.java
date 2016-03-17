@@ -107,6 +107,7 @@ public abstract class BaseWebFragment<T extends BaseUIFragmentHelper> extends Ba
 		
 		@Override
 		public void onDomReady() {
+            BaseWebFragment.this.onDomReady();
 		}
 		
 		@Override
@@ -187,6 +188,11 @@ public abstract class BaseWebFragment<T extends BaseUIFragmentHelper> extends Ba
     public void onWebViewSizeChange(int width, int height){
     	
     }
+
+    /**
+     * dom加载完毕
+     */
+    public void onDomReady() {}
 
     /**
      * Web页面请求方法调用
