@@ -214,7 +214,7 @@ public abstract class BaseWebFragment<T extends BaseUIFragmentHelper> extends Ba
                 getTitleBar().setTitleVisible(false);
             }
         } else if("showLoading".equals(methodName)) {
-            getLoadingView().showLoading("正在加载中...");
+            getLoadingView().showLoading();
         } else if("showEmpty".equals(methodName)) {
             getEmptyView().showEmpty(paramsMap.get("hint"));
         } else if("showContent".equals(methodName)) {
