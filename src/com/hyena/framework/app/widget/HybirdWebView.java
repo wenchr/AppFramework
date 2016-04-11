@@ -13,6 +13,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.webkit.ConsoleMessage;
+import android.webkit.JsPromptResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -107,9 +108,18 @@ public class HybirdWebView extends WebView {
 					handleUrlLoading(consoleMessage.message());
 					return true;
 				}
-				
-				
+
 				return super.onConsoleMessage(consoleMessage);
+			}
+
+			@Override
+			public boolean onJsPrompt(WebView view, String url, String message
+					, String defaultValue, JsPromptResult result) {
+				if (message != null && message.startsWith(ACTION_PREX)) {
+					handleUrlLoading(message);
+					return true;
+				}
+				return super.onJsPrompt(view, url, message, defaultValue, result);
 			}
 		};
 		
