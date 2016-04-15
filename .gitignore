@@ -1,0 +1,6 @@
+_Store
+*.iml
+.idea/
+out/
+build/
+.gradle/
