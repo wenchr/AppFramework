@@ -45,7 +45,7 @@ public class CGLView extends View implements RenderView {
 				switch (what) {
 				case MSG_REFRESH_VIEW:
 					Director director = Director.getSharedDirector();
-					if(director.isViewVisable()){
+					if(director.isViewVisible()){
 //						postInvalidate();
 						invalidate();
 					}
@@ -107,7 +107,7 @@ public class CGLView extends View implements RenderView {
 	/**
 	 * 停止刷新
 	 */
-	public void stopReferesh(){
+	public void stopRefresh(){
 		if(mHandler != null){
 			mHandler.removeMessages(MSG_REFRESH_VIEW);
 		}

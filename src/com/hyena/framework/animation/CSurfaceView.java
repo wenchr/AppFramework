@@ -94,7 +94,7 @@ public class CSurfaceView extends SurfaceView implements SurfaceHolder.Callback,
 	/**
 	 * 停止刷新
 	 */
-	public void stopReferesh(){
+	public void stopRefresh(){
 		if(mHandler != null){
 			mHandler.removeMessages(MSG_REFRESH_VIEW);
 		}
@@ -124,7 +124,7 @@ public class CSurfaceView extends SurfaceView implements SurfaceHolder.Callback,
 				switch (what) {
 				case MSG_REFRESH_VIEW:
 					Director director = Director.getSharedDirector();
-					if(director.isViewVisable()){
+					if(director.isViewVisible()){
 						try {
 							Canvas canvas = mSurfaceHolder.lockCanvas(null);
 							doDraw(canvas);
@@ -153,6 +153,6 @@ public class CSurfaceView extends SurfaceView implements SurfaceHolder.Callback,
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
-		stopReferesh();
+		stopRefresh();
 	}
 }

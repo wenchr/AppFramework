@@ -18,36 +18,36 @@ public interface RenderView {
 	/**
 	 * 开始刷新
 	 */
-	public void startRefresh();
+	void startRefresh();
 	
 	/**
 	 * 停止刷新
 	 */
-	public void stopReferesh();
+	void stopRefresh();
 	
 	/**
 	 * 获得View上下文
 	 * @return
 	 */
-	public Context getContext();
+	Context getContext();
 	
 	/**
 	 *  渲染器是否显示
 	 * @return
 	 */
-	public boolean isShown();
+	boolean isShown();
 	
 	/**
 	 * 设置触摸监听事件
 	 * @param listener
 	 */
-	public void setOnTouchListener(OnTouchListener listener);
+	void setOnTouchListener(OnTouchListener listener);
 	
 	/**
 	 * 设置窗口大小改变事件
 	 * @param listener
 	 */
-	public void setSizeChangeListener(SizeChangeListener listener);
+	void setSizeChangeListener(SizeChangeListener listener);
 	
 	public static interface SizeChangeListener {
 		public void onSizeChange(Rect rect);

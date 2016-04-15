@@ -30,7 +30,7 @@ public class CScene extends CLayer {
 	 * 刷新场景
 	 */
 	public void refresh(){
-		if(!Director.getSharedDirector().isViewVisable())
+		if(!Director.getSharedDirector().isViewVisible())
 			return;
 		
 		if(Director.getSharedDirector().isPaused()){
@@ -51,7 +51,7 @@ public class CScene extends CLayer {
 	
 	@Override
 	public synchronized void update(float dt) {
-		if(!Director.getSharedDirector().isViewVisable())
+		if(!Director.getSharedDirector().isViewVisible())
 			return;
 		
 		if(mTextNode != null)
