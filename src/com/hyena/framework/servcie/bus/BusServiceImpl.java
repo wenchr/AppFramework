@@ -94,6 +94,7 @@ public class BusServiceImpl implements BusService {
 	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver(){
 		@Override
 		public void onReceive(Context context, Intent intent) {
+			intent.setExtrasClassLoader(getClass().getClassLoader());
 			String action = intent.getAction();
 			Song song = intent.getParcelableExtra("song");
 			if(MediaService.SERVICE_PLAY_EVENT_ACTION.equals(action)){
